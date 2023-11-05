@@ -8,9 +8,9 @@ export class CreateCustomerController {
     const useCase = new CreateCustomerUseCase();
     try {
       const result = await useCase.execute(req.body);
-      return res.status(201).json(res);
-    } catch (err) {
-      return res.status(400).json(err);
+      return res.status(201).json(result);
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
     }
   }
 }
