@@ -5,7 +5,8 @@ export class KafkaSendMessage {
     const producer = kafka.producer();
 
     await producer.connect();
-    console.log(`Message sent to topid ${topic}`);
+    console.log(`Message sent to topic ${topic}`);
+    console.log(payload);
     await producer.send({
       topic,
       messages: [{ value: JSON.stringify(payload) }],

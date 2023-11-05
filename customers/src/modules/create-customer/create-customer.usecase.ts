@@ -1,4 +1,4 @@
-import { prismaClient } from '../../infra/database/prisma-customer';
+import { prismaClient } from '../../infra/database/prisma-client';
 import { kafka } from '../../infra/provider/kafka';
 import { KafkaSendMessage } from '../../infra/provider/kafka/producer';
 
@@ -26,7 +26,10 @@ export class CreateCustomerUseCase {
     });
 
     const kafkaProducer = new KafkaSendMessage();
-    await kafkaProducer.execute('CUSTOMER_CREATED', customerCreated);
+    await kafkaProducer.execute('CUSTOMER_CREATED', {
+      id: customerCreated.id,
+      email: customerCreated.email,
+    });
 
     return customerCreated;
   }
